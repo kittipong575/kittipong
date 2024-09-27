@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+    <style>
+        .center{
+        text-align:center;
+        }
+        body{
+        background-size: cover;
+        background-image: url(101.png);
+        
+        }
+        .personality{
+        padding: 30px;
+        background-color: aquamarine;
+        width: 230px;
+        height: 470px;
+        margin-left: 100px;
+        margin: 50px;
+        font-family: 'Times New Roman', Times, serif;
+        border: 5px solid rebeccapurple;
+        }
+        .contactinfo{
+        background-color: aquamarine;
+        width: 550px;
+        height: 200px;
+        margin: 50px;
+        font-family: 'Times New Roman', Times, serif;
+        padding: 30px;
+        border: 5px solid black;
+        }
+        .picture{
+        float: right;
+        margin-top: 150px;
+        }
+        .sensor{
+        float: right;
+        margin-top: -450px;
+        background-color: salmon;
+        border: 5px solid black;
+        width: 300px;
+        height: 100px;
+        padding: 50px;
+        font-size: 120%;
+        }
+       
+        .submitData{
+        background-color: gray;
+        margin: 50px;
+        padding: 30px;
+        border: 5px solid black;
+        width: 170px;
+        float: right;
+        margin-top: -200px;
+        }
+    </style>
+</head>
+<body>
+    <img src="2411.jpg"class="picture" alt="2411"
+    width="250px"
+    height="300px"
+    >
+    <header class="RESUME center">
+        <h1><em>RESUME</em></h1>
+     </header>
+    <div class="personality">
+        <h1><em>Personal Data</em></h1>  
+        <p><h3><em>First Name : Kittipong
+        <p>Last Name : Suktanom
+        <p>DOB : 24 November 2000
+        <p>Age : 24
+        <p>Gender : Male
+        <p>Blood Group : A
+        <p>Marriage : Single
+        <p>Height : 184
+        <p>Weight : 79
+        <p>Nationality : Thailand
+        </p></h3></em>
+    </div>
+
+    <div class="contactinfo">
+        <h1><i>Contact Info</i></h1>
+        <p><h3><i>Mobile : 0948494441
+        <p>Email :cankittipong2411@gmail.com </p> 
+        <p>Addrees : 55/3 Moo 5 Mabka Nikhompattana District Rayong 21180</p>  
+        </i></h3></p>
+    </div>
+     <div class="sensor">
+        <script>
+             document.addEventListener('DOMContentLoaded',function (){
+        setInterval(() => {
+            fetch('https://206.189.146.138/api/sensors') 
+            .then(response => response.json()) 
+            .then(data => {
+                const timestamp = data.timestamp;
+                const temperature = data.temperature;
+                const humidity = data.humidity;
+                const luxsensor = data.luxsensor;
+                const motion = data.motion;
+                document.querySelector('.sensor').innerHTML = `
+                timestamp =${timestamp}
+                <br>temperature =${temperature} 
+                <br>humidity =${humidity} 
+                <br>luxsensor =${luxsensor} 
+                <br>motion =${motion} `; 
+            })
+        }, 1000); 
+        })
+        </script>
+     </div>
+    <div class="submitData">
+     Name<br>
+     <input class="box-input-text" type="text" id="studentName">
+     <br>ID<br>
+     <input class="box-input-text" type="text" id="studentId"><br>
+     <input class="api-post-box-sent-submit" type="submit" >
+     
+     <script>
+         async function submitData() {
+             const studentId = document.getElementById("studentId").value;
+             const studentName = document.getElementById("studentName").value;
+            
+             const data = {
+                 id: studentId,
+                 name: studentName
+             };
+     
+             try {
+                 const response = await fetch("https://206.189.146.138/api/students", 
+                 {
+                     method: "POST",
+                     headers: {
+                         "Content-Type": "application/json"
+                     },
+                     body: JSON.stringify(data)
+                 });
+     
+                 if (response.ok) {
+                     alert("Sendsuccess!");
+                 } else {
+                     alert("Send fail.");
+                 }
+             } catch (error) {
+                 console.error("Error:", error);
+                 alert("Send fail.");
+             }
+         }
+       </script>
+       </div>
+</body>
+</html>
